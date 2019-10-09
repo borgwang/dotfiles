@@ -75,3 +75,8 @@ let g:vim_markdown_math = 1
 " jiangmiao/auto-pairs 
 let g:AutoPairsShortcutFastWrap = '<c-w>'
 
+
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snippet']
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
