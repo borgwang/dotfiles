@@ -1,22 +1,33 @@
-" Use vim-plug to manage plugins (https://github.com/junegunn/vim-plug)
+" -----------
+" Vim-plug
+" -----------
 
 " Plugin List
 call plug#begin('~/.vim/plugged')
 
-" Python
+" Editing
 Plug 'tpope/vim-commentary'
 Plug 'Chiel92/vim-autoformat'
 Plug 'jiangmiao/auto-pairs'
-Plug 'scrooloose/nerdcommenter'
 Plug '907th/vim-auto-save'
+Plug 'SirVer/ultisnips'
 
-" Markdown Preview
+" Markdown 
 Plug 'iamcco/markdown-preview.vim'
 Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'plasticboy/vim-markdown'
+
+" Theme
+Plug 'morhetz/gruvbox'
+Plug 'easysid/mod8.vim'
 
 call plug#end()
 
+
+" -----------
 " General Settings
+" -----------
+"
 set nocompatible  
 syntax enable  
 set number  " show line number
@@ -30,14 +41,37 @@ set smartindent
 set incsearch 
 set hlsearch
 
-" Key Mapping
+
+" -----------
+" Key Mapping 
+" -----------
+
+" Windows Navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
+" <space> to <c-d>
 nnoremap <space> <c-d>
 
-" Global variable settings
+
+" -----------
+" Colorscheme
+" colorscheme mod8
+" -----------
+
+
+" -----------
+" Plugin Settings
+" -----------
+
+" 907th/vim-auto-save 
 let g:auto_save=1
+
+" plasticboy/vim-markdown 
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_math = 1
+
+" jiangmiao/auto-pairs 
+let g:AutoPairsShortcutFastWrap = '<c-w>'
 
