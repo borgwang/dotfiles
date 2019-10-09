@@ -2,7 +2,6 @@
 " Vim-plug
 " -----------
 
-" Plugin List
 call plug#begin('~/.vim/plugged')
 
 " Editing
@@ -75,7 +74,7 @@ let g:vim_markdown_math = 1
 " jiangmiao/auto-pairs 
 let g:AutoPairsShortcutFastWrap = '<c-w>'
 
-
+" SirVer/ultisnips
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snippet']
 let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsJumpForwardTrigger='<tab>'
