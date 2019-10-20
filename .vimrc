@@ -10,6 +10,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'jiangmiao/auto-pairs'
 Plug '907th/vim-auto-save'
 Plug 'SirVer/ultisnips'
+Plug 'tmhedberg/SimpylFold'
 
 " Markdown 
 Plug 'iamcco/markdown-preview.vim'
@@ -37,6 +38,7 @@ set scrolloff=10  " 10 lines before/after cursor during scroll
 set showmatch
 set smartindent
 
+set foldlevel=4
 set incsearch 
 set hlsearch
 
@@ -79,3 +81,6 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snippet']
 let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsJumpForwardTrigger='<tab>'
 let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+
+" tmhedberg/SimpylFold
+let g:SimpylFold_docstring_preview = 1
