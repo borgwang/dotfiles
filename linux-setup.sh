@@ -7,7 +7,7 @@ sudo apt install vim tmux zsh -y
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
-sed -i '/^plugins=/c\plugins=(git vi-mode)' ~/.zshrc
+sed -i '/^plugins=/c\plugins=(git vi-mode z colored-man-pages)' ~/.zshrc
 source ~/.zshrc
 
 # Vim
