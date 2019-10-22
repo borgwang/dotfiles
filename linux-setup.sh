@@ -3,17 +3,15 @@
 # install stuff
 sudo add-apt-repository ppa:jonathonf/vim
 sudo apt update
-sudo install vim
+sudo apt install vim
 
 sudo apt update
 sudo apt install tmux zsh
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
-
-## .inputrc
-#cp .inputrc $HOME/.inputrc
-#source $HOME/.inputrc
+sed -i '/^plugins=/c\plugins=(git vi-mode)' ~/.zshrc
+source ~/.zshrc
 
 # Vim
 # install vim-plug
