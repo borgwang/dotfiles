@@ -1,12 +1,9 @@
 #!/bin/bash
 
 # install stuff
-sudo add-apt-repository ppa:jonathonf/vim
+sudo add-apt-repository ppa:jonathonf/vima -y
 sudo apt update
-sudo apt install vim
-
-sudo apt update
-sudo apt install tmux zsh
+sudo apt install vim tmux zsh -y
 
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
@@ -14,7 +11,7 @@ sed -i '/^plugins=/c\plugins=(git vi-mode)' ~/.zshrc
 source ~/.zshrc
 
 # Vim
-# install vim-plug
+# install vim-plug (TODO: check if already installed)
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # .vimrc
