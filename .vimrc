@@ -41,7 +41,8 @@ set smartindent
 set foldlevel=4
 set incsearch 
 set hlsearch
-set mouse=a
+
+set bg=dark
 
 
 " -----------
@@ -59,7 +60,7 @@ nnoremap <space> <c-d>
 
 " -----------
 " Colorscheme
-" colorscheme mod8
+colorscheme gruvbox
 " -----------
 
 
