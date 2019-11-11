@@ -43,6 +43,7 @@ set incsearch
 set hlsearch
 
 set bg=dark
+set colorcolumn=80
 
 
 " -----------
