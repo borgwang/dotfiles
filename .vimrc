@@ -21,6 +21,9 @@ Plug 'plasticboy/vim-markdown'
 Plug 'morhetz/gruvbox'
 Plug 'easysid/mod8.vim'
 
+" code completion
+Plug 'zxqfl/tabnine-vim'
+
 call plug#end()
 
 
