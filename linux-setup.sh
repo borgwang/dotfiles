@@ -23,3 +23,9 @@ vim +PlugInstall +qall
 cp .tmux.conf $HOME/.tmux.conf
 tmux source-file $HOME/.tmux.conf
 
+# zshrc
+echo "alias cda=\"conda activate\"" >> ~/.zshrc
+echo "alias cdd=\"conda deactivate\"" >> ~/.zshrc
+
+echo "done"
+
