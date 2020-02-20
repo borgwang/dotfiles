@@ -29,7 +29,6 @@ call plug#end()
 " -----------
 " General Settings
 " -----------
-"
 set nocompatible  
 syntax enable  
 set number  " show line number
@@ -51,25 +50,29 @@ set colorcolumn=80
 " -----------
 " Key Mapping 
 " -----------
-
 " Windows Navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" nerdtree key mapping
 map <C-n> :NERDTreeToggle<CR>
+
+" disable number increasing and decreasing
+map <C-a> <Nop>
+map <C-x> <Nop>
+
 
 " -----------
 " Colorscheme
-colorscheme gruvbox
 " -----------
+colorscheme gruvbox
 
 
 " -----------
 " Plugin Settings
 " -----------
-
 " 907th/vim-auto-save 
 let g:auto_save=1
 
