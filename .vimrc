@@ -4,12 +4,13 @@
 
 call plug#begin('~/.vim/plugged')
 
+" view	
+Plug 'preservim/nerdtree'
+
 " Editing
 Plug 'tpope/vim-commentary'
 Plug 'Chiel92/vim-autoformat'
-Plug 'jiangmiao/auto-pairs'
 Plug '907th/vim-auto-save'
-Plug 'SirVer/ultisnips'
 Plug 'tmhedberg/SimpylFold'
 
 " Markdown 
@@ -29,6 +30,7 @@ call plug#end()
 " -----------
 " General Settings
 " -----------
+"
 set nocompatible  
 syntax enable  
 set number  " show line number
@@ -51,28 +53,30 @@ set colorcolumn=80
 " -----------
 " Key Mapping 
 " -----------
+
 " Windows Navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" yank to system clipboard
+vmap Y :w !pbcopy<CR><CR>
+
 " disable number increasing and decreasing
 map <C-a> <Nop>
 map <C-x> <Nop>
 
-" yank to system clipboard
-vmap Y :w !pbcopy<CR><CR>
-
 " -----------
 " Colorscheme
-" -----------
 colorscheme gruvbox
+" -----------
 
 
 " -----------
 " Plugin Settings
 " -----------
+
 " 907th/vim-auto-save 
 let g:auto_save=1
 
@@ -80,21 +84,23 @@ let g:auto_save=1
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 
-" jiangmiao/auto-pairs 
-let g:AutoPairsShortcutFastWrap = '<c-w>'
-
-" SirVer/ultisnips
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snippet']
-let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltiSnipsJumpForwardTrigger='<tab>'
-let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-
 " tmhedberg/SimpylFold
 let g:SimpylFold_docstring_preview = 1
+
+" nerdtree key mapping	
+map <C-n> :NERDTreeToggle<CR>	
 
 " -----------------------------------
 " Coc
 " -----------------------------------
+
+let g:coc_global_extensions = [
+  \ 'coc-python',
+  \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-json', 
+  \ 'coc-git'
+  \ ]
 
 " TextEdit might fail if hidden is not set.
 set hidden
