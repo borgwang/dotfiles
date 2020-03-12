@@ -8,10 +8,10 @@ call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree'
 
 " Editing
-Plug 'tpope/vim-commentary'
 Plug 'Chiel92/vim-autoformat'
 Plug '907th/vim-auto-save'
 Plug 'tmhedberg/SimpylFold'
+Plug 'preservim/nerdcommenter'
 
 " Markdown 
 Plug 'iamcco/markdown-preview.vim'
@@ -89,6 +89,10 @@ let g:SimpylFold_docstring_preview = 1
 
 " nerdtree key mapping	
 map <C-n> :NERDTreeToggle<CR>	
+
+" nerdcommenter
+vmap ++ <plug>NERDCommenterToggle
+nmap ++ <plug>NERDCommenterToggle
 
 " -----------------------------------
 " Coc
