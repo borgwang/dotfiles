@@ -18,7 +18,7 @@ fi
 # .vimrc
 echo "sync vimrc..."
 cp .vimrc $HOME/.vimrc
-cp -r .vim/snippet $HOME/.vim/
+cp -r .vim/* $HOME/.vim/
 vim +PlugInstall +qall 
 
 # Tmux
