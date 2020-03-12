@@ -67,6 +67,7 @@ vmap Y :w !pbcopy<CR><CR>
 map <C-a> <Nop>
 map <C-x> <Nop>
 
+map <C-b> <C-O>
 " -----------
 " Colorscheme
 colorscheme gruvbox
