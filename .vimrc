@@ -49,6 +49,7 @@ set hlsearch
 set bg=dark
 set colorcolumn=80
 
+set updatetime=300
 
 " -----------
 " Key Mapping 
