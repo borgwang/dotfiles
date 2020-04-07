@@ -22,8 +22,12 @@ Plug 'plasticboy/vim-markdown'
 Plug 'morhetz/gruvbox'
 Plug 'easysid/mod8.vim'
 
-" coc
+" Coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Python
+Plug 'fisadev/vim-isort'
+
 call plug#end()
 
 
@@ -47,8 +51,9 @@ set incsearch
 set hlsearch
 
 set bg=dark
-set colorcolumn=80
+set colorcolumn=81
 
+set updatetime=300
 
 " -----------
 " Key Mapping 
@@ -94,6 +99,9 @@ map <C-n> :NERDTreeToggle<CR>
 " nerdcommenter
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
+
+" vim-isort
+let g:vim_isort_map = '<C-i>'
 
 " -----------------------------------
 " Coc
