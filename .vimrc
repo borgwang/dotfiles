@@ -20,7 +20,6 @@ Plug 'plasticboy/vim-markdown'
 
 " Theme
 Plug 'morhetz/gruvbox'
-Plug 'easysid/mod8.vim'
 
 " Coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -29,7 +28,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fisadev/vim-isort'
 
 call plug#end()
-
 
 " -----------
 " General Settings
