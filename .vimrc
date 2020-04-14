@@ -14,7 +14,7 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'preservim/nerdcommenter'
 
 " Markdown 
-Plug 'iamcco/markdown-preview.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'plasticboy/vim-markdown'
 
@@ -95,6 +95,7 @@ map <C-n> :NERDTreeToggle<CR>
 " nerdcommenter
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
+
 
 " -----------------------------------
 " Coc
