@@ -42,6 +42,8 @@ set backspace=indent,eol,start  " backspace removes all
 set scrolloff=10  " 10 lines before/after cursor during scroll
 set showmatch
 set smartindent
+set ts=4 
+set sw=4
 set path+=**
 
 set foldlevel=4
@@ -71,6 +73,10 @@ map <C-a> <Nop>
 map <C-x> <Nop>
 
 map <C-b> <C-O>
+
+" map :tabp and :tabn
+nnoremap <space><space> :tabp<CR>
+
 " -----------
 " Colorscheme
 colorscheme gruvbox
