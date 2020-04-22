@@ -1,7 +1,6 @@
 " -----------
 " Vim-plug
 " -----------
-
 call plug#begin('~/.vim/plugged')
 
 " view	
@@ -32,7 +31,6 @@ call plug#end()
 " -----------
 " General Settings
 " -----------
-"
 set nocompatible  
 syntax enable  
 set number  " show line number
@@ -58,6 +56,8 @@ set updatetime=300
 " -----------
 " Key Mapping 
 " -----------
+" map leader to space
+let mapleader=" "
 
 " Windows Navigations
 nnoremap <C-J> <C-W><C-J>
@@ -75,7 +75,11 @@ map <C-x> <Nop>
 map <C-b> <C-O>
 
 " map :tabp and :tabn
-nnoremap <space><space> :tabp<CR>
+nnoremap <silent> th :tabp<CR>
+nnoremap <silent> tl :tabn<CR>
+
+" map <leader> p to toggle paste m
+set pastetoggle=<leader>p
 
 " -----------
 " Colorscheme
@@ -238,21 +242,3 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings using CoCList:
-" Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
