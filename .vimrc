@@ -56,9 +56,6 @@ set updatetime=300
 " -----------
 " Key Mapping 
 " -----------
-" map leader to space
-let mapleader=" "
-
 " Windows Navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
