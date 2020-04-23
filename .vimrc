@@ -53,6 +53,8 @@ set colorcolumn=81
 
 set updatetime=300
 
+set splitbelow splitright
+
 " -----------
 " Key Mapping 
 " -----------
