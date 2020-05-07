@@ -28,6 +28,13 @@ Plug 'fisadev/vim-isort'
 
 call plug#end()
 
+
+" -----------
+" Colorscheme
+" -----------
+colorscheme gruvbox
+
+
 " -----------
 " General Settings
 " -----------
@@ -51,9 +58,9 @@ set hlsearch
 set bg=dark
 set colorcolumn=81
 
-set updatetime=300
-
+" natural ways to split vim windows
 set splitbelow splitright
+
 
 " -----------
 " Key Mapping 
@@ -79,11 +86,6 @@ nnoremap <silent> tl :tabn<CR>
 
 " map <leader> p to toggle paste m
 set pastetoggle=<leader>p
-
-" -----------
-" Colorscheme
-colorscheme gruvbox
-" -----------
 
 
 " -----------
