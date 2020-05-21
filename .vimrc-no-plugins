@@ -1,0 +1,55 @@
+" -----------
+" General Settings
+" -----------
+set nocompatible  
+
+syntax enable  
+
+set number  " show line number
+set ttyfast  " terminal axxeleration
+set enc=utf-8  " utf-8 by default
+set backspace=indent,eol,start  " backspace removes all
+set scrolloff=10  " 10 lines before/after cursor during scroll
+set showmatch
+
+set autoindent
+set smartindent
+
+set expandtab
+set tabstop=4 
+set shiftwidth=4
+set softtabstop=0  " do not mix space with tab
+
+set path+=**
+
+set foldlevel=4
+set incsearch 
+set hlsearch
+
+set bg=dark
+set colorcolumn=81
+
+" natural ways to split vim windows
+set splitbelow splitright
+
+" -----------
+" Key Mapping 
+" -----------
+" Windows Navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" disable number increasing and decreasing
+map <C-a> <Nop>
+map <C-x> <Nop>
+
+map <C-b> <C-O>
+
+" map :tabp and :tabn
+nnoremap <silent> th :tabp<CR>
+nnoremap <silent> tl :tabn<CR>
+
+" map <leader> p to toggle paste m
+set pastetoggle=<leader>p
