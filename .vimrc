@@ -46,9 +46,15 @@ set enc=utf-8  " utf-8 by default
 set backspace=indent,eol,start  " backspace removes all
 set scrolloff=10  " 10 lines before/after cursor during scroll
 set showmatch
+
+set autoindent
 set smartindent
-set ts=4 
-set sw=4
+
+set expandtab
+set tabstop=4 
+set shiftwidth=4
+set softtabstop=0  " do not mix space with tab
+
 set path+=**
 
 set foldlevel=4
