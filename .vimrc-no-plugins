@@ -32,6 +32,9 @@ set colorcolumn=81
 " natural ways to split vim windows
 set splitbelow splitright
 
+" save buffer whenever text is changed
+autocmd TextChanged,TextChangedI * silent write
+
 " -----------
 " Key Mapping 
 " -----------
