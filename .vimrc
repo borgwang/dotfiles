@@ -64,9 +64,16 @@ set hlsearch
 set bg=dark
 set colorcolumn=81
 
+set ignorecase  " ignore case when search by default
+set smartcase  " use case if any caps used
+
 " natural ways to split vim windows
 set splitbelow splitright
 
+" show tab as --->
+" show trailing space as -
+set listchars=tab:>-,trail:-
+set list
 
 " -----------
 " Key Mapping 
