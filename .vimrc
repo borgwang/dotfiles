@@ -115,8 +115,8 @@ let g:vim_markdown_math = 1
 " tmhedberg/SimpylFold
 let g:SimpylFold_docstring_preview = 1
 
-" nerdtree key mapping	
-map <C-n> :NERDTreeToggle<CR>	
+" nerdtree key mapping
+map <C-n> :NERDTreeToggle<CR>
 
 " nerdcommenter
 vmap ++ <plug>NERDCommenterToggle
@@ -133,7 +133,7 @@ let g:coc_global_extensions = [
   \ 'coc-python',
   \ 'coc-snippets',
   \ 'coc-pairs',
-  \ 'coc-json', 
+  \ 'coc-json',
   \ 'coc-git'
   \ ]
 
