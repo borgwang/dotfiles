@@ -64,3 +64,6 @@ nnoremap <silent> tl :tabn<CR>
 
 " map <leader> p to toggle paste m
 set pastetoggle=<leader>p
+
+" simple snippets
+iabbrev pdb import pdb; pdb.set_trace()
