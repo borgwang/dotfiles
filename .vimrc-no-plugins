@@ -16,7 +16,7 @@ set autoindent
 set smartindent
 
 set expandtab
-set tabstop=4 
+set tabstop=4
 set shiftwidth=4
 set softtabstop=0  " do not mix space with tab
 
@@ -28,6 +28,7 @@ set hlsearch
 
 " set bg=dark
 set colorcolumn=81
+highlight ColorColumn ctermbg=lightgray
 
 set ignorecase  " ignore case when search by default
 set smartcase  " use case if any caps used

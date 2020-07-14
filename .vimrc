@@ -3,7 +3,7 @@
 " -----------
 call plug#begin('~/.vim/plugged')
 
-" view	
+" view
 Plug 'preservim/nerdtree'
 
 " Editing
@@ -12,7 +12,7 @@ Plug '907th/vim-auto-save'
 Plug 'tmhedberg/SimpylFold'
 Plug 'preservim/nerdcommenter'
 
-" Markdown 
+" Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'plasticboy/vim-markdown'
@@ -38,8 +38,9 @@ colorscheme gruvbox
 " -----------
 " General Settings
 " -----------
-set nocompatible  
-syntax enable  
+set nocompatible
+syntax enable
+
 set number  " show line number
 set ttyfast  " terminal axxeleration
 set enc=utf-8  " utf-8 by default
@@ -51,18 +52,19 @@ set autoindent
 set smartindent
 
 set expandtab
-set tabstop=4 
+set tabstop=4
 set shiftwidth=4
 set softtabstop=0  " do not mix space with tab
 
 set path+=**
 
 set foldlevel=4
-set incsearch 
+set incsearch
 set hlsearch
 
 set bg=dark
 set colorcolumn=81
+highlight ColorColumn ctermbg=lightgray
 
 set ignorecase  " ignore case when search by default
 set smartcase  " use case if any caps used
@@ -105,10 +107,10 @@ set pastetoggle=<leader>p
 " Plugin Settings
 " -----------
 
-" 907th/vim-auto-save 
+" 907th/vim-auto-save
 let g:auto_save=1
 
-" plasticboy/vim-markdown 
+" plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 
