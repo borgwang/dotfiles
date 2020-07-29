@@ -68,3 +68,9 @@ set pastetoggle=<leader>p
 
 " simple snippets
 iabbrev pdb import pdb; pdb.set_trace()
+
+" vimdiff highlighting
+highlight DiffAdd    cterm=BOLD ctermfg=NONE ctermbg=22
+highlight DiffDelete cterm=BOLD ctermfg=NONE ctermbg=52
+highlight DiffChange cterm=BOLD ctermfg=NONE ctermbg=23
+highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=2
