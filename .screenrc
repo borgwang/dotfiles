@@ -1,4 +1,14 @@
+# turn off startup message
+startup_message off
+
+# turn off vbell
+vbell off
+
+altscreen on
+term screen-256color
+
+# status line at the bottom
 hardstatus alwayslastline
 hardstatus string "%{= KW} %H [%`] %{= Kw}|%{-} %-Lw%{= bW}%n%f %t%{-}%+Lw %=%C%a %Y-%M-%d"
 
-altscreen on
+defscrollback 50000
