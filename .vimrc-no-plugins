@@ -26,7 +26,6 @@ set foldlevel=4
 set incsearch
 set hlsearch
 
-" set bg=dark
 set colorcolumn=81
 highlight ColorColumn ctermbg=lightgray
 
@@ -74,3 +73,11 @@ highlight DiffAdd    cterm=BOLD ctermfg=NONE ctermbg=22
 highlight DiffDelete cterm=BOLD ctermfg=NONE ctermbg=52
 highlight DiffChange cterm=BOLD ctermfg=NONE ctermbg=23
 highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=2
+
+
+" offline install gruvbox colorscheme 
+" 1. copy gruvbox.vim from https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim
+" 2. save to ~/.vim/colors/gruvbox.vim
+"
+" colorscheme gruvbox
+" set background=dark
