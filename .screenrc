@@ -11,4 +11,7 @@ term screen-256color
 hardstatus alwayslastline
 hardstatus string "%{= KW} %H [%`] %{= Kw}|%{-} %-Lw%{= bW}%n%f %t%{-}%+Lw %=%C%a %Y-%M-%d"
 
+# scroll around with wheel
+termcapinfo xterm* ti@:te@
+
 defscrollback 50000
