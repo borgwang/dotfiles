@@ -78,7 +78,7 @@ set listchars=tab:>-,trail:-
 set list
 
 " -----------
-" Key Mapping 
+" Key Mapping
 " -----------
 " Windows Navigations
 nnoremap <C-J> <C-W><C-J>
@@ -101,6 +101,13 @@ nnoremap <silent> tl :tabn<CR>
 
 " map <leader> p to toggle paste m
 set pastetoggle=<leader>p
+
+
+" -----------
+" Custom Commands
+" -----------
+" command to remove tailing whitespaces
+command Tailor :%s/\s\+$//e
 
 
 " -----------
