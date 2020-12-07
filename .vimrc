@@ -110,6 +110,8 @@ noremap <space> :
 " command to remove tailing whitespaces
 command Tailor :%s/\s\+$//e
 
+" command to toggle paste mode
+command PasteToggle :set paste!
 
 " -----------
 " Plugin Settings
