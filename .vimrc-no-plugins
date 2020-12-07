@@ -65,7 +65,10 @@ nnoremap <silent> tl :tabn<CR>
 " map <leader> p to toggle paste m
 set pastetoggle=<leader>p
 
-" simple snippets
+" map space to : in normal mode
+noremap <space> :
+
+" simple snippets for python debugging
 iabbrev pdb import pdb; pdb.set_trace()
 
 " vimdiff highlighting

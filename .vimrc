@@ -63,7 +63,7 @@ set incsearch
 set hlsearch
 
 set bg=dark
-set colorcolumn=81
+set colorcolumn=100
 highlight ColorColumn ctermbg=lightgray
 
 set ignorecase  " ignore case when search by default
@@ -76,6 +76,7 @@ set splitbelow splitright
 " show trailing space as -
 set listchars=tab:>-,trail:-
 set list
+
 
 " -----------
 " Key Mapping
@@ -99,8 +100,8 @@ map <C-b> <C-O>
 nnoremap <silent> th :tabp<CR>
 nnoremap <silent> tl :tabn<CR>
 
-" map <leader> p to toggle paste m
-set pastetoggle=<leader>p
+" map space to :
+noremap <space> :
 
 
 " -----------
@@ -134,6 +135,7 @@ nmap ++ <plug>NERDCommenterToggle
 " vim-isort
 let g:vim_isort_map = '<C-i>'
 
+
 " -----------------------------------
 " Coc
 " -----------------------------------
@@ -141,7 +143,6 @@ let g:vim_isort_map = '<C-i>'
 let g:coc_global_extensions = [
   \ 'coc-python',
   \ 'coc-snippets',
-  \ 'coc-pairs',
   \ 'coc-json',
   \ 'coc-git'
   \ ]
