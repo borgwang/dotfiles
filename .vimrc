@@ -100,9 +100,6 @@ map <C-b> <C-O>
 nnoremap <silent> th :tabp<CR>
 nnoremap <silent> tl :tabn<CR>
 
-" map space to :
-noremap <space> :
-
 
 " -----------
 " Custom Commands
