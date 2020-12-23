@@ -7,9 +7,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree'
 
 " Editing
-Plug 'Chiel92/vim-autoformat'
 Plug '907th/vim-auto-save'
-Plug 'tmhedberg/SimpylFold'
 Plug 'preservim/nerdcommenter'
 
 " Markdown
@@ -77,6 +75,8 @@ set splitbelow splitright
 set listchars=tab:>-,trail:-
 set list
 
+" save buffer whenever text is changed
+autocmd TextChanged,TextChangedI * silent write
 
 " -----------
 " Key Mapping
@@ -86,9 +86,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-" yank to system clipboard
-vmap Y :w !pbcopy<CR><CR>
 
 " disable number increasing and decreasing
 map <C-a> <Nop>
@@ -100,6 +97,8 @@ map <C-b> <C-O>
 nnoremap <silent> th :tabp<CR>
 nnoremap <silent> tl :tabn<CR>
 
+" simple snippets
+iabbrev pdb import pdb; pdb.set_trace()
 
 " -----------
 " Custom Commands
@@ -109,6 +108,9 @@ command Tailor :%s/\s\+$//e
 
 " command to toggle paste mode
 command PasteToggle :set paste!
+
+" command to toggle line number showing
+command NumberToggle :set number!
 
 " -----------
 " Plugin Settings

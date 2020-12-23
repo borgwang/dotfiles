@@ -2,7 +2,6 @@
 " General Settings
 " -----------
 set nocompatible
-
 syntax enable
 
 set number  " show line number
@@ -26,7 +25,7 @@ set foldlevel=4
 set incsearch
 set hlsearch
 
-set colorcolumn=81
+set colorcolumn=100
 highlight ColorColumn ctermbg=lightgray
 
 set ignorecase  " ignore case when search by default
@@ -62,9 +61,6 @@ map <C-b> <C-O>
 nnoremap <silent> th :tabp<CR>
 nnoremap <silent> tl :tabn<CR>
 
-" map <leader> p to toggle paste m
-set pastetoggle=<leader>p
-
 " simple snippets for python debugging
 iabbrev pdb import pdb; pdb.set_trace()
 
@@ -90,3 +86,7 @@ highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=2
 
  " command to toggle paste mode
 command PasteToggle :set paste!
+
+" command to toggle line number showing
+command NumberToggle :set number!
+
