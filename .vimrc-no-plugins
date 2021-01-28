@@ -15,9 +15,14 @@ set autoindent
 set smartindent
 
 set expandtab
+" indent settings for common filetypes
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0  " do not mix space with tab
+
+" indent settings from perticular filetypes
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+autocmd FileType markdown setlocal ts=2 sw=2 sts=0
 
 set path+=**
 
@@ -84,7 +89,7 @@ highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=2
  " command to remove tailing whitespaces
  command Tailor :%s/\s\+$//e
 
- " command to toggle paste mode
+" command to toggle paste mode
 command PasteToggle :set paste!
 
 " command to toggle line number showing

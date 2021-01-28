@@ -47,9 +47,14 @@ set autoindent
 set smartindent
 
 set expandtab
+" indent settings for common filetypes
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0  " do not mix space with tab
+
+" indent settings from perticular filetypes
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+autocmd FileType markdown setlocal ts=2 sw=2 sts=0
 
 set path+=**
 
@@ -94,8 +99,14 @@ map <C-b> <C-O>
 nnoremap <silent> th :tabp<CR>
 nnoremap <silent> tl :tabn<CR>
 
-" simple snippets
+" simple snippets for python debugging
 iabbrev pdb import pdb; pdb.set_trace()
+
+" vimdiff highlighting
+highlight DiffAdd    cterm=BOLD ctermfg=NONE ctermbg=22
+highlight DiffDelete cterm=BOLD ctermfg=NONE ctermbg=52
+highlight DiffChange cterm=BOLD ctermfg=NONE ctermbg=23
+highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=2
 
 " -----------
 " Custom Commands
@@ -117,7 +128,6 @@ command NumberToggle :set number!
 let g:auto_save=1
 
 " plasticboy/vim-markdown
-let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 
 " tmhedberg/SimpylFold
