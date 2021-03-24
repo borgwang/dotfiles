@@ -80,6 +80,9 @@ set list
 " save buffer whenever text is changed
 autocmd TextChanged,TextChangedI * silent write
 
+" resize panes when window is resized
+autocmd VimResized * wincmd =
+
 " -----------
 " Key Mapping
 " -----------
