@@ -4,7 +4,6 @@
 set nocompatible
 syntax enable
 
-set number  " show line number
 set ttyfast  " terminal axxeleration
 set enc=utf-8  " utf-8 by default
 set backspace=indent,eol,start  " backspace removes all
@@ -20,16 +19,18 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=0  " do not mix space with tab
 
-" indent settings from perticular filetypes
+" indent settings from particular filetypes
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-autocmd FileType markdown setlocal ts=2 sw=2 sts=0
+autocmd BufNewFile,BufFilePre,BufRead *.html set filetype=html
+autocmd BufNewFile,BufFilePre,BufRead *.cc,*.h set filetype=cpp
 
-set path+=**
+autocmd FileType html,markdown,cpp setlocal ts=2 sw=2 sts=0
 
 set foldlevel=4
 set incsearch
 set hlsearch
 
+set bg=dark
 set colorcolumn=100
 highlight ColorColumn ctermbg=lightgray
 
@@ -45,10 +46,16 @@ set listchars=tab:>-,trail:-
 set list
 
 " save buffer whenever text is changed
-autocmd TextChanged,TextChangedI * silent write
+" autocmd TextChanged,TextChangedI * silent write
+" for nerdtree conflict, see https://vi.stackexchange.com/questions/27098/autosave-and-nerdtree-conflicts
+autocmd TextChanged,TextChangedI *
+  \ if &buftype ==# '' || &buftype == 'acwrite' |
+  \     silent write |
+  \ endif
 
 " resize panes when window is resized
 autocmd VimResized * wincmd =
+
 
 " -----------
 " Key Mapping
@@ -72,19 +79,11 @@ nnoremap <silent> tl :tabn<CR>
 " simple snippets for python debugging
 iabbrev pdb import pdb; pdb.set_trace()
 
-" vimdiff highlighting
-highlight DiffAdd    cterm=BOLD ctermfg=NONE ctermbg=22
-highlight DiffDelete cterm=BOLD ctermfg=NONE ctermbg=52
-highlight DiffChange cterm=BOLD ctermfg=NONE ctermbg=23
-highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=2
-
-
 " offline install gruvbox colorscheme
 " 1. copy gruvbox.vim from https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim
 " 2. save to ~/.vim/colors/gruvbox.vim
 "
 " colorscheme gruvbox
-" set background=dark
 
  " -----------
  " Custom Commands

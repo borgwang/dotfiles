@@ -1,6 +1,6 @@
 # --- Alias ---
 # GNU screen
-alias sr="screen -r"
+alias sr="screen -xRR"
 alias ss="screen -S"
 alias sl="screen -ls"
 

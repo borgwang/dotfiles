@@ -5,22 +5,12 @@ call plug#begin('~/.vim/plugged')
 
 " view
 Plug 'preservim/nerdtree'
-
-" Editing
-Plug '907th/vim-auto-save'
-Plug 'preservim/nerdcommenter'
-
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'plasticboy/vim-markdown'
-
 " Theme
 Plug 'morhetz/gruvbox'
-
-" Python
-Plug 'fisadev/vim-isort'
-
 call plug#end()
 
 
@@ -36,7 +26,6 @@ colorscheme gruvbox
 set nocompatible
 syntax enable
 
-set number  " show line number
 set ttyfast  " terminal axxeleration
 set enc=utf-8  " utf-8 by default
 set backspace=indent,eol,start  " backspace removes all
@@ -52,11 +41,12 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=0  " do not mix space with tab
 
-" indent settings from perticular filetypes
+" indent settings from particular filetypes
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-autocmd FileType markdown setlocal ts=2 sw=2 sts=0
+autocmd BufNewFile,BufFilePre,BufRead *.html set filetype=html
+autocmd BufNewFile,BufFilePre,BufRead *.cc,*.h set filetype=cpp
 
-set path+=**
+autocmd FileType html,markdown,cpp setlocal ts=2 sw=2 sts=0
 
 set foldlevel=4
 set incsearch
@@ -78,10 +68,16 @@ set listchars=tab:>-,trail:-
 set list
 
 " save buffer whenever text is changed
-autocmd TextChanged,TextChangedI * silent write
+" autocmd TextChanged,TextChangedI * silent write
+" for nerdtree conflict, see https://vi.stackexchange.com/questions/27098/autosave-and-nerdtree-conflicts
+autocmd TextChanged,TextChangedI *
+  \ if &buftype ==# '' || &buftype == 'acwrite' |
+  \     silent write |
+  \ endif
 
 " resize panes when window is resized
 autocmd VimResized * wincmd =
+
 
 " -----------
 " Key Mapping
@@ -105,12 +101,6 @@ nnoremap <silent> tl :tabn<CR>
 " simple snippets for python debugging
 iabbrev pdb import pdb; pdb.set_trace()
 
-" vimdiff highlighting
-highlight DiffAdd    cterm=BOLD ctermfg=NONE ctermbg=22
-highlight DiffDelete cterm=BOLD ctermfg=NONE ctermbg=52
-highlight DiffChange cterm=BOLD ctermfg=NONE ctermbg=23
-highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=2
-
 " -----------
 " Custom Commands
 " -----------
@@ -123,6 +113,8 @@ command PasteToggle :set paste!
 " command to toggle line number showing
 command NumberToggle :set number!
 
+command Tree :NERDTreeFind
+
 " -----------
 " Plugin Settings
 " -----------
@@ -131,18 +123,11 @@ command NumberToggle :set number!
 let g:auto_save=1
 
 " plasticboy/vim-markdown
+let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
-
-" tmhedberg/SimpylFold
-let g:SimpylFold_docstring_preview = 1
+let g:vim_markdown_new_list_item_indent = 2
 
 " nerdtree key mapping
 map <C-n> :NERDTreeToggle<CR>
 
-" nerdcommenter
-vmap ++ <plug>NERDCommenterToggle
-nmap ++ <plug>NERDCommenterToggle
-
-" vim-isort
-let g:vim_isort_map = '<C-i>'
 
