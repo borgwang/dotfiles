@@ -44,16 +44,18 @@ set softtabstop=0  " do not mix space with tab
 " indent settings from particular filetypes
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufFilePre,BufRead *.html set filetype=html
+autocmd BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
 autocmd BufNewFile,BufFilePre,BufRead *.cc,*.h set filetype=cpp
+autocmd BufNewFile,BufFilePre,BufRead *.json set filetype=json
 
-autocmd FileType html,markdown,cpp setlocal ts=2 sw=2 sts=0
+autocmd FileType html,markdown,cpp,json,javascript setlocal ts=2 sw=2 sts=0
 
 set foldlevel=4
 set incsearch
 set hlsearch
 
 set bg=dark
-set colorcolumn=100
+set colorcolumn=81
 highlight ColorColumn ctermbg=lightgray
 
 set ignorecase  " ignore case when search by default
@@ -66,6 +68,8 @@ set splitbelow splitright
 " show trailing space as -
 set listchars=tab:>-,trail:-
 set list
+
+set nofixendofline
 
 " save buffer whenever text is changed
 " autocmd TextChanged,TextChangedI * silent write
@@ -94,11 +98,7 @@ map <C-x> <Nop>
 
 map <C-b> <C-O>
 
-" map :tabp and :tabn
-nnoremap <silent> th :tabp<CR>
-nnoremap <silent> tl :tabn<CR>
-
-" simple snippets for python debugging
+" simple oneline snippets
 iabbrev pdb import pdb; pdb.set_trace()
 
 " -----------
@@ -115,13 +115,14 @@ command NumberToggle :set number!
 
 command Tree :NERDTreeFind
 
+if v:version > 801
+  " show current match position
+  set shortmess-=S
+endif
+
 " -----------
 " Plugin Settings
 " -----------
-
-" 907th/vim-auto-save
-let g:auto_save=1
-
 " plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
