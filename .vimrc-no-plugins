@@ -1,34 +1,27 @@
-" -----------
+" ------------------------------
 " General Settings
-" -----------
-set nocompatible
-syntax enable
+" ------------------------------
 
-set ttyfast  " terminal axxeleration
-set enc=utf-8  " utf-8 by default
-set backspace=indent,eol,start  " backspace removes all
-set scrolloff=10  " 10 lines before/after cursor during scroll
-set showmatch
-
+" --- Indent --- "
 set autoindent
 set smartindent
-
 set expandtab
-" indent settings for common filetypes
+
+" for common filetypes
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0  " do not mix space with tab
 
-" indent settings from particular filetypes
+" for particular filetypes
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufFilePre,BufRead *.html set filetype=html
 autocmd BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
 autocmd BufNewFile,BufFilePre,BufRead *.cc,*.h set filetype=cpp
 autocmd BufNewFile,BufFilePre,BufRead *.json set filetype=json
-
 autocmd FileType html,markdown,cpp,json,javascript setlocal ts=2 sw=2 sts=0
 
-set foldlevel=4
+" --- Searching --- "
+set showmatch
 set incsearch
 set hlsearch
 
@@ -39,31 +32,44 @@ highlight ColorColumn ctermbg=lightgray
 set ignorecase  " ignore case when search by default
 set smartcase  " use case if any caps used
 
-" natural ways to split vim windows
-set splitbelow splitright
+" --- Appearance --- "
+syntax enable
+set background=dark
 
-" show tab as --->
-" show trailing space as -
-set listchars=tab:>-,trail:-
+" offline install gruvbox colorscheme
+" 1. copy gruvbox.vim from https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim
+" 2. save to ~/.vim/colors/gruvbox.vim
+"
+" colorscheme gruvbox
+
+set colorcolumn=81
+highlight ColorColumn ctermbg=darkgray
+
 set list
+set listchars=tab:>-,trail:-  " show tab as '--->', trailing space as '-'
 
-set nofixendofline
+set splitbelow splitright  " natural ways to split vim windows
+autocmd VimResized * wincmd =  " resize panes when window is resized
 
-" save buffer whenever text is changed
-" autocmd TextChanged,TextChangedI * silent write
-" for nerdtree conflict, see https://vi.stackexchange.com/questions/27098/autosave-and-nerdtree-conflicts
+" --- Editing --- "
+set encoding=utf-8  " utf-8 by default
+set backspace=indent,eol,start  " backspace removes all
+set scrolloff=10  " 10 lines before/after cursor during scroll
+
+" save buffer whenever text is changed (see https://vi.stackexchange.com/questions/27098/autosave-and-nerdtree-conflicts)
 autocmd TextChanged,TextChangedI *
   \ if &buftype ==# '' || &buftype == 'acwrite' |
   \     silent write |
   \ endif
 
-" resize panes when window is resized
-autocmd VimResized * wincmd =
+" --- Misc --- "
+set nocompatible
+set ttyfast  " faster redrawing
 
 
-" -----------
+" ------------------------------
 " Key Mapping
-" -----------
+" ------------------------------
 " Windows Navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -73,31 +79,23 @@ nnoremap <C-H> <C-W><C-H>
 " disable number increasing and decreasing
 map <C-a> <Nop>
 map <C-x> <Nop>
-
 map <C-b> <C-O>
 
-" simple oneline snippets
+" simple one-line snippets
 iabbrev pdb import pdb; pdb.set_trace()
 
-" offline install gruvbox colorscheme
-" 1. copy gruvbox.vim from https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim
-" 2. save to ~/.vim/colors/gruvbox.vim
-"
-" colorscheme gruvbox
 
- " -----------
- " Custom Commands
- " -----------
- " command to remove tailing whitespaces
- command Tailor :%s/\s\+$//e
-
-" command to toggle paste mode
+" ------------------------------
+" Custom Commands
+" ------------------------------
+" remove tailing whitespaces
+command Tailor :%s/\s\+$//e
+" toggle paste mode
 command PasteToggle :set paste!
-
-" command to toggle line number showing
+" toggle line number showing
 command NumberToggle :set number!
 
+" show current match position
 if v:version > 801
-  " show current match position
   set shortmess-=S
 endif
