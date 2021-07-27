@@ -40,10 +40,6 @@ set showmatch
 set incsearch
 set hlsearch
 
-set bg=dark
-set colorcolumn=81
-highlight ColorColumn ctermbg=lightgray
-
 set ignorecase  " ignore case when search by default
 set smartcase  " use case if any caps used
 
@@ -106,6 +102,8 @@ command PasteToggle :set paste!
 command NumberToggle :set number!
 " locate current file in the tree
 command Tree :NERDTreeFind
+" open Finder.app with the current folder (Mac only)
+command Finder :exe '!open '.expand("%:p:h")
 
 " show current match position
 if v:version > 801
