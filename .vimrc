@@ -10,6 +10,8 @@ Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'plasticboy/vim-markdown'
 " Theme
 Plug 'morhetz/gruvbox'
+" Z jump around
+Plug 'lingceng/z.vim'
 call plug#end()
 
 
