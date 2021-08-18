@@ -12,6 +12,11 @@ Plug 'plasticboy/vim-markdown'
 Plug 'morhetz/gruvbox'
 " Z jump around
 Plug 'lingceng/z.vim'
+" fzf
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+" goyo
+Plug 'junegunn/goyo.vim'
 call plug#end()
 
 
@@ -133,6 +138,32 @@ endif
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 2
+" junegunn/goyo.vim
+let g:goyo_height = 90
+let g:goyo_width = 100
+" enable goyo when opening markdown file
+autocmd vimenter *.md Goyo
+
+function! s:goyo_enter()
+  let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+endfunction
+
+function! s:goyo_leave()
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    if b:quitting_bang
+      qa!
+    else
+      qa
+    endif
+  endif
+endfunction
+
+autocmd! User GoyoEnter call <SID>goyo_enter()
+autocmd! User GoyoLeave call <SID>goyo_leave()
 
 " nerdtree key mapping
 map <C-n> :NERDTreeToggle<CR>
