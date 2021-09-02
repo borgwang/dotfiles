@@ -1,9 +1,7 @@
-" ------------------------------
+ " ------------------------------
 " Plugins (with vim-plug)
 " ------------------------------
 call plug#begin('~/.vim/plugged')
-" Tree
-Plug 'preservim/nerdtree'
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'iamcco/mathjax-support-for-mkdp'
@@ -12,13 +10,9 @@ Plug 'plasticboy/vim-markdown'
 Plug 'morhetz/gruvbox'
 " Z jump around
 Plug 'lingceng/z.vim'
-" fzf
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
 " goyo
 Plug 'junegunn/goyo.vim'
 call plug#end()
-
 
 " ------------------------------
 " General Settings
@@ -53,6 +47,8 @@ set smartcase  " use case if any caps used
 " --- Appearance --- "
 syntax enable
 set background=dark
+
+"colorscheme gruvbox
 colorscheme gruvbox
 
 set colorcolumn=81
@@ -70,7 +66,7 @@ set backspace=indent,eol,start  " backspace removes all
 set scrolloff=10  " 10 lines before/after cursor during scroll
 
 " save buffer whenever text is changed
-" Also fix nerdtree conflicts (see https://vi.stackexchange.com/questions/27098/autosave-and-nerdtree-conflicts)
+" Also avoid nerdtree conflicts (see https://vi.stackexchange.com/questions/27098/autosave-and-nerdtree-conflicts)
 autocmd TextChanged,TextChangedI *
   \ if &buftype ==# '' || &buftype == 'acwrite' |
   \     silent write |
@@ -84,13 +80,9 @@ set ttyfast  " faster redrawing
 " ------------------------------
 " Key Mapping
 " ------------------------------
-" Windows Navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 " Remap the Leader key
 let mapleader=" "
+
 " Switch to last-active tab
 if !exists('g:lasttab')
   let g:lasttab = 1
@@ -103,12 +95,18 @@ nnoremap <Leader>1 1gt
 nnoremap <Leader>2 2gt
 nnoremap <Leader>3 3gt
 
+" Windows Navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " disable number increasing and decreasing
 map <C-a> <Nop>
 map <C-x> <Nop>
 map <C-b> <C-O>
 
-" simple one-line snippets
+" simple one-line python snippet
 iabbrev pdb import pdb; pdb.set_trace()
 
 
@@ -121,15 +119,29 @@ command Tailor :%s/\s\+$//e
 command PasteToggle :set paste!
 " toggle line number showing
 command NumberToggle :set number!
-" locate current file in the tree
-command Tree :NERDTreeFind
 " open Finder.app with the current folder (Mac only)
 command Finder :exe '!open '.expand("%:p:h")
 
-" show current match position
-if v:version > 801
-  set shortmess-=S
-endif
+" rename the current file
+" usage: Rename[!] {newname}
+function! Rename(name, bang)
+    let l:curfile = expand("%:p")
+    let l:curfilepath = expand("%:p:h")
+    let l:newname = l:curfilepath . "/" . a:name
+    let v:errmsg = ""
+    silent! exe "saveas" . a:bang . " " . l:newname
+    if v:errmsg =~# '^$\|^E329'
+        if expand("%:p") !=# l:curfile && filewritable(expand("%:p"))
+            silent exe "bwipe! " . l:curfile
+            if delete(l:curfile)
+                echoerr "Could not delete " . l:curfile
+            endif
+        endif
+    else
+        echoerr v:errmsg
+    endif
+endfunction
+command! -nargs=* -complete=file -bang Rename :call Rename("<args>", "<bang>")
 
 " ------------------------------
 " Plugin Settings
@@ -140,9 +152,13 @@ let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 2
 " junegunn/goyo.vim
 let g:goyo_height = 90
-let g:goyo_width = 100
+let g:goyo_width = 120
+
 " enable goyo when opening markdown file
-autocmd vimenter *.md Goyo
+autocmd vimenter *.md
+  \ if !&diff |
+  \     Goyo |
+  \ endif
 
 function! s:goyo_enter()
   let b:quitting = 0
@@ -164,6 +180,3 @@ endfunction
 
 autocmd! User GoyoEnter call <SID>goyo_enter()
 autocmd! User GoyoLeave call <SID>goyo_leave()
-
-" nerdtree key mapping
-map <C-n> :NERDTreeToggle<CR>

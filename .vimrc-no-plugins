@@ -52,7 +52,8 @@ set encoding=utf-8  " utf-8 by default
 set backspace=indent,eol,start  " backspace removes all
 set scrolloff=10  " 10 lines before/after cursor during scroll
 
-" save buffer whenever text is changed (see https://vi.stackexchange.com/questions/27098/autosave-and-nerdtree-conflicts)
+" save buffer whenever text is changed
+" Also avoid nerdtree conflicts (see https://vi.stackexchange.com/questions/27098/autosave-and-nerdtree-conflicts)
 autocmd TextChanged,TextChangedI *
   \ if &buftype ==# '' || &buftype == 'acwrite' |
   \     silent write |
@@ -71,6 +72,19 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+" Remap the Leader key
+let mapleader=" "
+" Switch to last-active tab
+if !exists('g:lasttab')
+  let g:lasttab = 1
+endif
+nnoremap <Leader><Space> :exe "tabn ".g:lasttab<CR>
+autocmd TabLeave * let g:lasttab = tabpagenr()
+
+" Navigate between tabs
+nnoremap <Leader>1 1gt
+nnoremap <Leader>2 2gt
+nnoremap <Leader>3 3gt
 
 " disable number increasing and decreasing
 map <C-a> <Nop>
@@ -91,7 +105,3 @@ command PasteToggle :set paste!
 " toggle line number showing
 command NumberToggle :set number!
 
-" show current match position
-if v:version > 801
-  set shortmess-=S
-endif
