@@ -106,6 +106,9 @@ map <C-a> <Nop>
 map <C-x> <Nop>
 map <C-b> <C-O>
 
+" copy selection to system clickboard (in visual mode)
+vnoremap <Leader>c "+y
+
 " simple one-line python snippet
 iabbrev pdb import pdb; pdb.set_trace()
 
