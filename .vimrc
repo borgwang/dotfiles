@@ -1,4 +1,4 @@
- " ------------------------------
+" ------------------------------
 " Plugins (with vim-plug)
 " ------------------------------
 call plug#begin('~/.vim/plugged')
@@ -51,7 +51,7 @@ set background=dark
 "colorscheme gruvbox
 colorscheme gruvbox
 
-set colorcolumn=81
+set colorcolumn=101
 highlight ColorColumn ctermbg=darkgray
 
 set list
@@ -106,7 +106,7 @@ map <C-a> <Nop>
 map <C-x> <Nop>
 map <C-b> <C-O>
 
-" copy selection to system clickboard (in visual mode)
+" copy selection to system clickboard in visual mode (leader + c)
 vnoremap <Leader>c "+y
 
 " simple one-line python snippet
@@ -122,29 +122,42 @@ command Tailor :%s/\s\+$//e
 command PasteToggle :set paste!
 " toggle line number showing
 command NumberToggle :set number!
-" open Finder.app with the current folder (Mac only)
-command Finder :exe '!open '.expand("%:p:h")
+" open current folder with Finder.app (Mac only)
+command Finder :exe '!open '.shellescape(expand("%:p:h"))
+" open current file with Typora.app (Mac only)
+command Typora :exe '!open -a Typora '.shellescape(expand("%:p"))
 
 " rename the current file
-" usage: Rename[!] {newname}
 function! Rename(name, bang)
     let l:curfile = expand("%:p")
     let l:curfilepath = expand("%:p:h")
     let l:newname = l:curfilepath . "/" . a:name
-    let v:errmsg = ""
-    silent! exe "saveas" . a:bang . " " . l:newname
-    if v:errmsg =~# '^$\|^E329'
-        if expand("%:p") !=# l:curfile && filewritable(expand("%:p"))
-            silent exe "bwipe! " . l:curfile
-            if delete(l:curfile)
-                echoerr "Could not delete " . l:curfile
+    let choice = confirm("Rename to " . l:newname . "?", "&Yes\n&No", 1)
+    if choice == 1
+        let v:errmsg = ""
+        silent! exe "saveas" . a:bang . " " . l:newname
+        if v:errmsg =~# '^$\|^E329'
+            if expand("%:p") !=# l:curfile && filewritable(expand("%:p"))
+                silent exe "bwipe! " . l:curfile
+                if delete(l:curfile)
+                    echoerr "Could not delete " . l:curfile
+                endif
             endif
+        else
+            echoerr v:errmsg
         endif
-    else
-        echoerr v:errmsg
     endif
 endfunction
 command! -nargs=* -complete=file -bang Rename :call Rename("<args>", "<bang>")
+
+" delete current file
+function! Delete()
+    let choice = confirm("Delete current file and close buffer?", "&Yes\n&No", 1)
+    if choice == 1
+        call delete(expand("%:p")) | q!
+    endif
+endfunction
+command! Delete :call Delete()
 
 " ------------------------------
 " Plugin Settings
