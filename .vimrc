@@ -1,18 +1,22 @@
 " ------------------------------
-" Plugins (with vim-plug)
+" Plugins
 " ------------------------------
 call plug#begin('~/.vim/plugged')
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'plasticboy/vim-markdown'
-" Theme
-Plug 'morhetz/gruvbox'
-" Z jump around
-Plug 'lingceng/z.vim'
 " goyo
 Plug 'junegunn/goyo.vim'
+" Theme
+Plug 'morhetz/gruvbox'
+" dirdiff
+Plug 'will133/vim-dirdiff'
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
+
 
 " ------------------------------
 " General Settings
@@ -22,18 +26,17 @@ call plug#end()
 set autoindent
 set smartindent
 set expandtab
-
-" for common filetypes
-set tabstop=4
-set shiftwidth=4
-set softtabstop=0  " do not mix space with tab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2  " do not mix space with tab
 
 " for particular filetypes
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufFilePre,BufRead *.html set filetype=html
 autocmd BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
-autocmd BufNewFile,BufFilePre,BufRead *.cc,*.h set filetype=cpp
+autocmd BufNewFile,BufFilePre,BufRead *.cc,*.h,*.cpp set filetype=cpp
 autocmd BufNewFile,BufFilePre,BufRead *.json set filetype=json
+autocmd BufNewFile,BufFilePre,BufRead *.python set filetype=python
 autocmd FileType html,markdown,cpp,json,javascript setlocal ts=2 sw=2 sts=0
 
 " --- Searching --- "
@@ -48,11 +51,11 @@ set smartcase  " use case if any caps used
 syntax enable
 set background=dark
 
-"colorscheme gruvbox
+" colorscheme gruvbox
 colorscheme gruvbox
 
 set colorcolumn=101
-highlight ColorColumn ctermbg=darkgray
+highlight ColorColumn ctermbg=lightgray
 
 set list
 set listchars=tab:>-,trail:-  " show tab as '--->', trailing space as '-'
@@ -73,9 +76,9 @@ autocmd TextChanged,TextChangedI *
   \ endif
 
 " --- Misc --- "
+set lazyredraw
 set nocompatible
 set ttyfast  " faster redrawing
-
 
 " ------------------------------
 " Key Mapping
@@ -106,11 +109,12 @@ map <C-a> <Nop>
 map <C-x> <Nop>
 map <C-b> <C-O>
 
+" map :tabp and :tabn
+nnoremap <silent> th :tabp<CR>
+nnoremap <silent> tl :tabn<CR>
+
 " copy selection to system clickboard in visual mode (leader + c)
 vnoremap <Leader>c "+y
-
-" simple one-line python snippet
-iabbrev pdb import pdb; pdb.set_trace()
 
 
 " ------------------------------
@@ -123,50 +127,62 @@ command PasteToggle :set paste!
 " toggle line number showing
 command NumberToggle :set number!
 " open current folder with Finder.app (Mac only)
-command Finder :exe '!open '.shellescape(expand("%:p:h"))
+command Finder :silent exec '!open '.shellescape(expand("%:p:h")) | redraw!
 " open current file with Typora.app (Mac only)
-command Typora :exe '!open -a Typora '.shellescape(expand("%:p"))
+command Typora :silent exec '!open -a Typora '.shellescape(expand("%:p")) | redraw!
 
 " rename the current file
 function! Rename(name, bang)
-    let l:curfile = expand("%:p")
-    let l:curfilepath = expand("%:p:h")
-    let l:newname = l:curfilepath . "/" . a:name
-    let choice = confirm("Rename to " . l:newname . "?", "&Yes\n&No", 1)
-    if choice == 1
-        let v:errmsg = ""
-        silent! exe "saveas" . a:bang . " " . l:newname
-        if v:errmsg =~# '^$\|^E329'
-            if expand("%:p") !=# l:curfile && filewritable(expand("%:p"))
-                silent exe "bwipe! " . l:curfile
-                if delete(l:curfile)
-                    echoerr "Could not delete " . l:curfile
-                endif
-            endif
-        else
-            echoerr v:errmsg
+  let l:curfile = expand("%:p")
+  let l:curfilepath = expand("%:p:h")
+  let l:newname = l:curfilepath . "/" . a:name
+  let choice = confirm("Rename to " . l:newname . "?", "&Yes\n&No", 1)
+  if choice == 1
+    let v:errmsg = ""
+    silent! exe "saveas" . a:bang . " " . l:newname
+    if v:errmsg =~# '^$\|^E329'
+      if expand("%:p") !=# l:curfile && filewritable(expand("%:p"))
+        silent exe "bwipe! " . l:curfile
+        if delete(l:curfile)
+          echoerr "Could not delete " . l:curfile
         endif
+      endif
+    else
+      echoerr v:errmsg
     endif
+  endif
 endfunction
 command! -nargs=* -complete=file -bang Rename :call Rename("<args>", "<bang>")
 
 " delete current file
 function! Delete()
-    let choice = confirm("Delete current file and close buffer?", "&Yes\n&No", 1)
-    if choice == 1
-        call delete(expand("%:p")) | q!
-    endif
+  let choice = confirm("Delete current file and close buffer?", "&Yes\n&No", 1)
+  if choice == 1
+    call delete(expand("%:p")) | q!
+  endif
 endfunction
 command! Delete :call Delete()
+
+" -----------
+" Custom Snippets
+" -----------
+" simple one-lineython snippet
+iabbrev pdb import pdb; pdb.set_trace()
+
 
 " ------------------------------
 " Plugin Settings
 " ------------------------------
-" plasticboy/vim-markdown
+
+" --- plasticboy/vim-markdown ---
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 2
-" junegunn/goyo.vim
+
+" --- will133/vim-dirdiff ---
+let g:DirDiffExcludes = ".git"
+
+" --- junegunn/goyo.vim ---
 let g:goyo_height = 90
 let g:goyo_width = 120
 
@@ -196,3 +212,51 @@ endfunction
 
 autocmd! User GoyoEnter call <SID>goyo_enter()
 autocmd! User GoyoLeave call <SID>goyo_leave()
+
+" --- junegunn/fzf.vim ---
+function! SetWorkingDirectory()
+  while 1
+    let l:directory = input("Please specify current working directory: ", "~/", "dir")
+    if isdirectory(expand(l:directory))
+      let g:fzf_current_working_directory = l:directory
+      break
+    endif
+  endwhile
+endfunction
+command! SetWorkingDirectory :call SetWorkingDirectory()
+
+function! Find(pattern)
+  if !exists("g:fzf_current_working_directory")
+    call SetWorkingDirectory()
+  endif
+  let l:pattern = a:pattern
+  if l:pattern == ""
+    let l:pattern = expand("<cword>")
+  endif
+  call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case "
+    \.l:pattern." ".g:fzf_current_working_directory, 1, 0)
+  " cache current pattern
+  let g:fzf_previous_grep_pattern = l:pattern
+endfunction
+command! -nargs=* Find :call Find("<args>")
+
+function! Files()
+  if !exists("g:fzf_current_working_directory")
+    call SetWorkingDirectory()
+  endif
+  echo g:fzf_current_working_directory
+  call fzf#vim#files(g:fzf_current_working_directory, 0)
+endfunction
+nnoremap <C-p> :call Files()<Cr>
+
+function! PreviousFind()
+  if exists("g:fzf_previous_grep_pattern")
+    call Find(g:fzf_previous_grep_pattern)
+  endif
+endfunction
+nnoremap <C-f> :call PreviousFind()<Cr>
+
+let g:fzf_action = {
+  \ 'enter': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }

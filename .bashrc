@@ -21,11 +21,15 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 
-# User specific aliases and functions
+# ls
+alias ls="ls -lh --color"
+
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# --- Others ---
-# load z.sh script (download z.sh from)
+# load z.sh script
 . ~/.z.sh
+
+# fzf config
+export FZF_DEFAULT_OPTS='--bind ctrl-u:half-page-up --bind ctrl-d:half-page-down'
