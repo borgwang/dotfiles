@@ -21,6 +21,7 @@ call plug#end()
 " ------------------------------
 " General Settings
 " ------------------------------
+" --- Statusline --- "
 
 " --- Indent --- "
 set autoindent
@@ -50,6 +51,8 @@ set smartcase  " use case if any caps used
 " --- Appearance --- "
 syntax enable
 set background=dark
+set laststatus=2
+set statusline+=%F
 
 " colorscheme gruvbox
 colorscheme gruvbox
@@ -64,10 +67,10 @@ set splitbelow splitright  " natural ways to split vim windows
 autocmd VimResized * wincmd =  " resize panes when window is resized
 
 " --- Editing --- "
+set nocompatible
 set encoding=utf-8  " utf-8 by default
 set backspace=indent,eol,start  " backspace removes all
 set scrolloff=10  " 10 lines before/after cursor during scroll
-
 " save buffer whenever text is changed
 " Also avoid nerdtree conflicts (see https://vi.stackexchange.com/questions/27098/autosave-and-nerdtree-conflicts)
 autocmd TextChanged,TextChangedI *
@@ -75,10 +78,10 @@ autocmd TextChanged,TextChangedI *
   \     silent write |
   \ endif
 
-" --- Misc --- "
+" --- Performance --- "
 set lazyredraw
-set nocompatible
 set ttyfast  " faster redrawing
+set re=0  " use new regular expression engine
 
 " ------------------------------
 " Key Mapping
