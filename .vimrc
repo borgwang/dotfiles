@@ -107,6 +107,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+tnoremap <C-J> <C-W><C-J>
+tnoremap <C-K> <C-W><C-K>
+tnoremap <C-L> <C-W><C-L>
+tnoremap <C-H> <C-W><C-H>
+
 " disable number increasing and decreasing
 map <C-a> <Nop>
 map <C-x> <Nop>
@@ -133,6 +138,8 @@ command NumberToggle :set number!
 command Finder :silent exec '!open '.shellescape(expand("%:p:h")) | redraw!
 " open current file with Typora.app (Mac only)
 command Typora :silent exec '!open -a Typora '.shellescape(expand("%:p")) | redraw!
+# open terminal
+command Terminal :terminal++rows=24
 
 " rename the current file
 function! Rename(name, bang)
