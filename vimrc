@@ -1,7 +1,8 @@
+let VERSION='advance'  " basic/advance
+
 " ------------------------------
 " General Settings
 " ------------------------------
-"
 " --- Indent --- "
 set autoindent
 set smartindent
@@ -34,9 +35,6 @@ set laststatus=2
 set statusline+=%F
 set display=lastline  " for super long lines
 
-" colorscheme gruvbox
-colorscheme gruvbox
-
 set colorcolumn=101
 highlight ColorColumn ctermbg=lightgray
 
@@ -45,6 +43,12 @@ set listchars=tab:>-,trail:-  " show tab as '--->', trailing space as '-'
 
 set splitbelow splitright  " natural ways to split vim windows
 autocmd VimResized * wincmd =  " resize panes when window is resized
+
+" better vimdiff highlighting
+highlight DiffAdd    cterm=BOLD ctermfg=NONE ctermbg=22
+highlight DiffDelete cterm=BOLD ctermfg=NONE ctermbg=52
+highlight DiffChange cterm=BOLD ctermfg=NONE ctermbg=23
+highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=2
 
 " --- Editing --- "
 set nocompatible
@@ -101,9 +105,10 @@ map <C-b> <C-O>
 nnoremap <silent> th :tabp<CR>
 nnoremap <silent> tl :tabn<CR>
 
-" copy selection to system clickboard in visual mode (leader + c)
-vnoremap <Leader>c "+y
-
+if has('macunix')
+  " copy selection to system clickboard in visual mode (leader + c)
+  vnoremap <Leader>c "+y
+endif
 
 " ------------------------------
 " Custom Commands
@@ -114,8 +119,13 @@ command Tailor :%s/\s\+$//e
 command PasteToggle :set paste!
 " toggle line number showing
 command NumberToggle :set number!
-" open terminal
-command Terminal :terminal++rows=24
+
+if has('macunix')
+  " open current folder with Finder.app (Mac only)
+  command Finder :silent exec '!open '.shellescape(expand("%:p:h")) | redraw!
+  " open current file with VSCode.app (Mac only)
+  command Code :silent exec '!code '.shellescape(expand("%:p")) | redraw!
+endif
 
 " rename the current file
 function! Rename(name, bang)
@@ -149,10 +159,119 @@ function! Delete()
 endfunction
 command! Delete :call Delete()
 
-
-" -----------
+" ------------------------------
 " Custom Snippets
-" -----------
-" one-line python debugging
+" ------------------------------
+" simple one-lineython snippet
 iabbrev pdb import pdb; pdb.set_trace()
 
+" ------------------------------
+" Plugins (for advance version)
+" ------------------------------
+if VERSION == 'advance'
+  call plug#begin('~/.vim/plugged')
+  " Markdown
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+  Plug 'iamcco/mathjax-support-for-mkdp'
+  Plug 'plasticboy/vim-markdown'
+  " goyo
+  Plug 'junegunn/goyo.vim'
+  " Theme
+  Plug 'morhetz/gruvbox'
+  " dirdiff
+  Plug 'will133/vim-dirdiff'
+  " fzf
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  call plug#end()
+
+  " colorscheme gruvbox
+  colorscheme gruvbox
+
+  " --- plasticboy/vim-markdown ---
+  let g:vim_markdown_folding_disabled = 1
+  let g:vim_markdown_math = 1
+  let g:vim_markdown_new_list_item_indent = 2
+
+  " --- will133/vim-dirdiff ---
+  let g:DirDiffExcludes = ".git"
+
+  " --- junegunn/goyo.vim ---
+  let g:goyo_height = 90
+  let g:goyo_width = 120
+
+  " enable goyo when opening markdown file
+  autocmd vimenter *.md
+    \ if !&diff |
+    \     Goyo |
+    \ endif
+
+  function! s:goyo_enter()
+    let b:quitting = 0
+    let b:quitting_bang = 0
+    autocmd QuitPre <buffer> let b:quitting = 1
+    cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+  endfunction
+
+  function! s:goyo_leave()
+    " Quit Vim if this is the only remaining buffer
+    if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+      if b:quitting_bang
+        qa!
+      else
+        qa
+      endif
+    endif
+  endfunction
+
+  autocmd! User GoyoEnter call <SID>goyo_enter()
+  autocmd! User GoyoLeave call <SID>goyo_leave()
+
+  " --- junegunn/fzf.vim ---
+  function! SetWorkingDirectory()
+    while 1
+      let l:directory = input("Please specify current working directory: ", "~/", "dir")
+      if isdirectory(expand(l:directory))
+        let g:fzf_current_working_directory = l:directory
+        break
+      endif
+    endwhile
+  endfunction
+  command! SetWorkingDirectory :call SetWorkingDirectory()
+
+  function! Find(pattern)
+    if !exists("g:fzf_current_working_directory")
+      call SetWorkingDirectory()
+    endif
+    let l:pattern = a:pattern
+    if l:pattern == ""
+      let l:pattern = expand("<cword>")
+    endif
+    call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case "
+      \.l:pattern." ".g:fzf_current_working_directory, 1, 0)
+    " cache current pattern
+    let g:fzf_previous_grep_pattern = l:pattern
+  endfunction
+  command! -nargs=* Find :call Find("<args>")
+
+  function! Files()
+    if !exists("g:fzf_current_working_directory")
+      call SetWorkingDirectory()
+    endif
+    echo g:fzf_current_working_directory
+    call fzf#vim#files(g:fzf_current_working_directory, 0)
+  endfunction
+  nnoremap <C-p> :call Files()<Cr>
+
+  function! PreviousFind()
+    if exists("g:fzf_previous_grep_pattern")
+      call Find(g:fzf_previous_grep_pattern)
+    endif
+  endfunction
+  nnoremap <C-f> :call PreviousFind()<Cr>
+
+  let g:fzf_action = {
+    \ 'enter': 'tab split',
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-v': 'vsplit' }
+endif
