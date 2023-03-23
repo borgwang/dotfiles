@@ -4,12 +4,10 @@ let VERSION='advance'  " basic/advance
 " General Settings
 " ------------------------------
 " --- Indent --- "
+filetype indent plugin on
 set autoindent
 set smartindent
 set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2  " do not mix space with tab
 
 " for particular filetypes
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
@@ -17,8 +15,8 @@ autocmd BufNewFile,BufFilePre,BufRead *.html set filetype=html
 autocmd BufNewFile,BufFilePre,BufRead *.js set filetype=javascript
 autocmd BufNewFile,BufFilePre,BufRead *.cc,*.h,*.cpp set filetype=cpp
 autocmd BufNewFile,BufFilePre,BufRead *.json set filetype=json
-autocmd BufNewFile,BufFilePre,BufRead *.python set filetype=python
-autocmd FileType html,markdown,cpp,json,javascript setlocal ts=2 sw=2 sts=0
+autocmd BufNewFile,BufFilePre,BufRead *.py,*.python set filetype=python
+autocmd FileType html,markdown,cpp,json,javascript,python setlocal ts=2 sw=2 sts=0
 
 " --- Searching --- "
 set showmatch
